@@ -1,0 +1,32 @@
+{
+  "captainVersion": "4",
+  "services": {
+    "hastebin": {
+      "image": "rlister/hastebin",
+      "environment": {
+        "STORAGE_TYPE": "redis",
+        "STORAGE_HOST": "$$cap_hastebinredis"
+      },
+      "ports": [
+        {
+          "containerPort": "7777",
+          "hostPort": "80"
+        }
+      ]
+    },
+    "hastebinredis": {
+      "image": "redis",
+      "volumes": [
+        {
+          "volumeName": "data",
+          "containerPath": "/data"
+        }
+      ],
+      "command": [
+        "redis-server",
+        "--appendonly",
+        "yes"
+      ]
+    }
+  }
+}
